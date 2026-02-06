@@ -176,9 +176,11 @@ Every word, image, and video must serve this purpose.
 
 ### Tracking & Analytics (Non-Negotiable)
 
+**Google Analytics 4**
+- Measurement ID: `G-J33PNRJZ3V`
+- Installed on all pages (index, thank-you, all city pages)
+- Engagement rate, bounce rate, page load times
+
 **FullStory (Free)**
 - Screen records visitor behavior
 - 10,000 sessions/month free
-
-**Google Analytics**
-- Engagement rate, bounce rate, page load times
