@@ -255,6 +255,38 @@
             margin-bottom: 20px;
         }
 
+        /* Portfolio */
+        .portfolio {
+            padding: 100px 48px;
+            background: var(--dark-surface);
+        }
+
+        .portfolio h2 {
+            text-align: center;
+            font-size: clamp(1.8rem, 4vw, 2.5rem);
+            margin-bottom: 48px;
+        }
+
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .portfolio-grid img {
+            width: 100%;
+            aspect-ratio: 4/5;
+            object-fit: cover;
+            border-radius: 4px;
+            transition: transform 0.3s ease;
+        }
+
+        .portfolio-grid img:hover {
+            transform: scale(1.02);
+        }
+
         /* Venues */
         .venues {
             padding: 80px 48px;
@@ -581,6 +613,7 @@
             .form-row { grid-template-columns: 1fr; }
             .services-grid { grid-template-columns: 1fr; }
             .venue-grid { grid-template-columns: 1fr; }
+            .portfolio-grid { grid-template-columns: repeat(2, 1fr); }
         }
     </style>
 </head>
@@ -616,6 +649,19 @@
             <p>Irvine hosts some of Orange County's most polished corporate events, elegant weddings, and upscale private celebrations. From the tech campuses of the Irvine Spectrum to the ballrooms of Hotel Irvine, the city attracts guests who expect a refined experience.</p>
             <p>Portrait Lounge brings a complete professional studio directly to your Irvine venue. Our setup includes studio lighting, curated backdrops, and a photographer who guides every pose. The result is editorial-quality portraits your guests will actually want to keep, not blurry photo booth strips they forget in their pocket.</p>
             <p>Whether you're hosting a corporate gala at the Irvine Marriott, a wedding at Oak Creek Golf Club, or a product launch at a Spectrum venue, Portrait Lounge creates an experience your guests will remember.</p>
+        </section>
+
+        <!-- Portfolio -->
+        <section class="portfolio">
+            <h2>The <em>Experience</em></h2>
+            <div class="portfolio-grid">
+                <img src="../images/homepage/pll-1.jpg" alt="Portrait Lounge live portrait at event" loading="lazy">
+                <img src="../images/homepage/pll-2.jpg" alt="Professional event portrait with studio lighting" loading="lazy">
+                <img src="../images/homepage/pll-3.jpg" alt="Editorial portrait at corporate event" loading="lazy">
+                <img src="../images/homepage/pll-4.jpg" alt="Live portrait experience at wedding" loading="lazy">
+                <img src="../images/homepage/pll-5.jpg" alt="Studio quality portrait at gala" loading="lazy">
+                <img src="../images/homepage/pll-6.jpg" alt="Professional headshot at event" loading="lazy">
+            </div>
         </section>
 
         <!-- Venues -->

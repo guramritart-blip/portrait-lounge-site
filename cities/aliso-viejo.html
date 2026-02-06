@@ -35,7 +35,8 @@
         .hero-description { font-size: 16px; max-width: 600px; margin-bottom: 40px; opacity: 0.85; line-height: 1.8; }
         .cta-button { display: inline-flex; padding: 18px 40px; background: var(--gold); color: var(--black); border-radius: 50px; font-size: 11px; font-weight: 500; letter-spacing: 0.3em; text-transform: uppercase; transition: all 0.4s; } .cta-button:hover { background: var(--gold-light); }
         .content-section { padding: 100px 48px; max-width: 900px; margin: 0 auto; } .content-section h2 { font-size: clamp(1.8rem, 4vw, 2.5rem); margin-bottom: 32px; text-align: center; } .content-section p { font-size: 15px; line-height: 1.9; color: rgba(245,240,232,0.8); margin-bottom: 20px; }
-        .venues { padding: 80px 48px; background: var(--dark-surface); } .venues h2 { text-align: center; font-size: clamp(1.8rem, 4vw, 2.5rem); margin-bottom: 48px; }
+        .portfolio { padding: 100px 48px; background: var(--dark-surface); } .portfolio h2 { text-align: center; font-size: clamp(1.8rem, 4vw, 2.5rem); margin-bottom: 48px; } .portfolio-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; max-width: 1200px; margin: 0 auto; } .portfolio-grid img { width: 100%; aspect-ratio: 4/5; object-fit: cover; border-radius: 4px; transition: transform 0.3s ease; } .portfolio-grid img:hover { transform: scale(1.02); }
+        .venues { padding: 80px 48px; background: var(--dark); } .venues h2 { text-align: center; font-size: clamp(1.8rem, 4vw, 2.5rem); margin-bottom: 48px; }
         .venue-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 24px; max-width: 1000px; margin: 0 auto; }
         .venue-item { background: var(--black); padding: 24px; border-radius: 4px; border-left: 2px solid var(--gold); } .venue-item h3 { font-family: 'Montserrat', sans-serif; font-size: 14px; font-weight: 500; margin-bottom: 8px; } .venue-item p { font-size: 13px; color: var(--gray-400); }
         .services { padding: 100px 48px; background: var(--dark); } .services h2 { text-align: center; font-size: clamp(1.8rem, 4vw, 2.5rem); margin-bottom: 48px; }
@@ -51,7 +52,7 @@
         .other-cities { padding: 80px 48px; background: var(--black); text-align: center; } .other-cities h2 { font-size: clamp(1.5rem, 3vw, 2rem); margin-bottom: 32px; }
         .city-links { display: flex; flex-wrap: wrap; justify-content: center; gap: 16px; max-width: 800px; margin: 0 auto; } .city-links a { padding: 10px 20px; border: 1px solid rgba(255,255,255,0.15); font-size: 12px; letter-spacing: 0.1em; transition: all 0.3s; } .city-links a:hover { border-color: var(--gold); color: var(--gold); }
         .footer { padding: 60px 48px 40px; background: var(--dark); text-align: center; border-top: 1px solid rgba(255,255,255,0.06); } .footer-logo { font-family: 'Perandory', serif; font-size: 18px; letter-spacing: 0.25em; color: var(--gold); display: block; margin-bottom: 16px; text-transform: uppercase; } .footer p { font-size: 12px; color: var(--gray-400); } .footer-nav { margin-top: 24px; display: flex; justify-content: center; gap: 32px; } .footer-nav a { font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gray-400); } .footer-nav a:hover { color: var(--gold); }
-        .mobile-menu-btn { display: none; } @media (max-width: 768px) { .navbar { padding: 16px 24px; } .logo { font-size: 16px; } .nav-links { display: none; } .mobile-menu-btn { display: block; background: none; border: none; cursor: pointer; padding: 8px; } .mobile-menu-btn span { display: block; width: 24px; height: 1.5px; background: var(--cream); margin: 6px 0; } .hero { padding: 120px 24px 60px; min-height: auto; } .content-section, .venues, .services, .contact, .other-cities { padding: 60px 24px; } .form-row, .services-grid, .venue-grid { grid-template-columns: 1fr; } }
+        .mobile-menu-btn { display: none; } @media (max-width: 768px) { .navbar { padding: 16px 24px; } .logo { font-size: 16px; } .nav-links { display: none; } .mobile-menu-btn { display: block; background: none; border: none; cursor: pointer; padding: 8px; } .mobile-menu-btn span { display: block; width: 24px; height: 1.5px; background: var(--cream); margin: 6px 0; } .hero { padding: 120px 24px 60px; min-height: auto; } .content-section, .venues, .services, .contact, .other-cities { padding: 60px 24px; } .form-row, .services-grid, .venue-grid { grid-template-columns: 1fr; } .portfolio-grid { grid-template-columns: repeat(2, 1fr); } }
     </style>
 </head>
 <body>
@@ -70,6 +71,18 @@
             <p>Aliso Viejo combines the convenience of a modern planned community with easy access to the best of South Orange County. The city's conference centers, golf courses, and community spaces host everything from corporate retreats to elegant celebrations.</p>
             <p>Portrait Lounge brings a complete professional studio directly to your Aliso Viejo venue. Our setup includes studio lighting, curated backdrops, and a photographer who guides every pose. Whether you're hosting a company event at the Aliso Viejo Conference Center, a wedding at one of the local golf clubs, or a celebration at the Aliso Viejo Town Center, your guests leave with editorial-quality portraits.</p>
             <p>Aliso Viejo's central South County location makes it an ideal spot for events drawing guests from throughout the region. Portrait Lounge delivers professional portraits that give your guests a lasting memory of the day.</p>
+        </section>
+
+        <section class="portfolio">
+            <h2>The <em>Experience</em></h2>
+            <div class="portfolio-grid">
+                <img src="../images/homepage/pll-1.jpg" alt="Portrait Lounge live portrait at event" loading="lazy">
+                <img src="../images/homepage/pll-2.jpg" alt="Professional event portrait with studio lighting" loading="lazy">
+                <img src="../images/homepage/pll-3.jpg" alt="Editorial portrait at corporate event" loading="lazy">
+                <img src="../images/homepage/pll-4.jpg" alt="Live portrait experience at wedding" loading="lazy">
+                <img src="../images/homepage/pll-5.jpg" alt="Studio quality portrait at gala" loading="lazy">
+                <img src="../images/homepage/pll-6.jpg" alt="Professional headshot at event" loading="lazy">
+            </div>
         </section>
 
         <section class="venues">
