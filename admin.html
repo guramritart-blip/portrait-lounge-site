@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex, nofollow">
+    <title>Admin | Portrait Lounge</title>
+    <link rel="icon" type="image/jpeg" href="images/favicon.jpg">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { background: #0a0a0a; color: #ffffff; font-family: 'Montserrat', Arial, sans-serif; min-height: 100vh; }
+
+        /* Password Overlay */
+        #password-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: #0a0a0a; display: flex; align-items: center; justify-content: center; z-index: 9999;
+        }
+        .password-box { text-align: center; padding: 40px; max-width: 340px; width: 100%; }
+        .password-box .brand {
+            font-family: 'Montserrat', sans-serif; font-size: 10px; letter-spacing: 0.5em;
+            text-transform: uppercase; color: #c9a84c; margin-bottom: 24px;
+        }
+        .password-box h2 {
+            font-family: Georgia, 'Times New Roman', serif; font-size: 24px; font-weight: 400; margin-bottom: 8px;
+        }
+        .password-box .subtitle { font-size: 13px; color: #666; margin-bottom: 24px; }
+        .password-box input {
+            width: 100%; padding: 12px 16px; font-size: 14px; border: 1px solid #222;
+            background: #111; color: #fff; border-radius: 2px; outline: none;
+            font-family: 'Montserrat', sans-serif;
+        }
+        .password-box input:focus { border-color: #c9a84c; }
+        .password-box .error-msg { color: #c41e3a; font-size: 12px; margin-top: 10px; display: none; }
+        .password-box button {
+            margin-top: 16px; padding: 10px 32px; background: #c9a84c; color: #0a0a0a; border: none;
+            font-family: 'Montserrat', sans-serif; font-size: 11px; letter-spacing: 0.15em;
+            text-transform: uppercase; cursor: pointer; border-radius: 2px; font-weight: 600;
+        }
+        .password-box button:hover { background: #b8952a; }
+
+        /* Dashboard */
+        #dashboard { display: none; max-width: 900px; margin: 0 auto; padding: 40px; }
+
+        .dash-brand {
+            font-family: 'Montserrat', sans-serif; font-size: 10px; letter-spacing: 0.5em;
+            text-transform: uppercase; color: #c9a84c; margin-bottom: 32px;
+        }
+        .dash-title {
+            font-family: Georgia, 'Times New Roman', serif; font-size: 32px; font-weight: 400; margin-bottom: 8px;
+        }
+        .dash-subtitle { font-size: 14px; color: #666; margin-bottom: 40px; }
+
+        /* Form Section */
+        .form-section {
+            border: 1px solid #1a1a1a; border-radius: 3px; padding: 32px; margin-bottom: 32px;
+        }
+        .form-section-title {
+            font-family: Georgia, 'Times New Roman', serif; font-size: 20px; font-weight: 400; margin-bottom: 6px;
+        }
+        .form-section-desc { font-size: 13px; color: #666; margin-bottom: 24px; }
+        .form-grid {
+            display: grid; grid-template-columns: 1fr 1fr; gap: 16px;
+        }
+        .form-grid .full { grid-column: 1 / -1; }
+        .field label {
+            display: block; font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase;
+            color: #c9a84c; margin-bottom: 4px; font-family: 'Montserrat', sans-serif;
+        }
+        .field input, .field textarea, .field select {
+            width: 100%; padding: 10px 12px; font-size: 13px; border: 1px solid #222;
+            background: #111; color: #fff; border-radius: 2px; outline: none;
+            font-family: 'Montserrat', sans-serif;
+        }
+        .field input:focus, .field textarea:focus, .field select:focus { border-color: #c9a84c; }
+        .field textarea { resize: vertical; min-height: 70px; }
+        .field select { cursor: pointer; appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='%23666' viewBox='0 0 16 16'%3E%3Cpath d='M8 11L3 6h10z'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 12px center; }
+        .field select option { background: #111; color: #fff; }
+
+        /* Tabs */
+        .tabs { display: flex; gap: 0; margin-bottom: 0; border-bottom: 1px solid #1a1a1a; }
+        .tab {
+            padding: 14px 28px; font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase;
+            color: #666; cursor: pointer; border: 1px solid transparent; border-bottom: none;
+            border-radius: 3px 3px 0 0; transition: color 0.2s, background 0.2s;
+            font-family: 'Montserrat', sans-serif; background: none;
+        }
+        .tab:hover { color: #999; }
+        .tab.active {
+            color: #c9a84c; background: #0f0f0f; border-color: #1a1a1a;
+            margin-bottom: -1px; padding-bottom: 15px;
+        }
+        .tab-content { display: none; border: 1px solid #1a1a1a; border-top: none; border-radius: 0 0 3px 3px; padding: 32px; background: #0f0f0f; }
+        .tab-content.active { display: block; }
+
+        /* Buttons */
+        .btn {
+            display: inline-block; padding: 12px 28px; background: #c9a84c; color: #0a0a0a; border: none;
+            font-family: 'Montserrat', sans-serif; font-size: 11px; letter-spacing: 0.15em;
+            text-transform: uppercase; cursor: pointer; border-radius: 2px; font-weight: 600; transition: background 0.2s;
+        }
+        .btn:hover { background: #b8952a; }
+        .btn-outline { background: transparent; color: #c9a84c; border: 1px solid #c9a84c; }
+        .btn-outline:hover { background: #c9a84c; color: #0a0a0a; }
+
+        .copy-msg { color: #c9a84c; font-size: 12px; font-weight: 500; display: none; margin-left: 12px; }
+        .actions { margin-top: 20px; display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+
+        /* Email preview container */
+        .email-preview-wrap {
+            margin-top: 24px; border: 1px solid #222; border-radius: 2px; overflow: hidden;
+        }
+        .email-preview-label {
+            font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase; color: #c9a84c;
+            padding: 10px 16px; background: #111; border-bottom: 1px solid #222;
+        }
+
+        @media (max-width: 600px) {
+            #dashboard { padding: 24px 16px; }
+            .form-grid { grid-template-columns: 1fr; }
+            .tabs { flex-wrap: wrap; }
+            .tab { padding: 10px 16px; font-size: 10px; }
+            .tab-content { padding: 20px 16px; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- Password Overlay -->
+<div id="password-overlay">
+    <div class="password-box">
+        <p class="brand">Portrait Lounge</p>
+        <h2>Admin</h2>
+        <p class="subtitle">Enter password to continue.</p>
+        <input type="password" id="admin-password" placeholder="Password" autofocus>
+        <p class="error-msg" id="pw-error">Incorrect password. Try again.</p>
+        <button onclick="checkPassword()">Enter</button>
+    </div>
+</div>
+
+<!-- Dashboard -->
+<div id="dashboard">
+    <p class="dash-brand">Portrait Lounge</p>
+    <h1 class="dash-title">Admin</h1>
+    <p class="dash-subtitle">Enter client details to generate inquiry response emails.</p>
+
+    <!-- Client Details Form -->
+    <div class="form-section">
+        <h2 class="form-section-title">Client Details</h2>
+        <p class="form-section-desc">These details populate the email templates below.</p>
+        <div class="form-grid">
+            <div class="field">
+                <label>Client Name</label>
+                <input type="text" id="a-client-name" placeholder="e.g., Sarah" oninput="updateAll()">
+            </div>
+            <div class="field">
+                <label>Event Type</label>
+                <select id="a-event-type" onchange="updateAll()">
+                    <option value="">Select event type</option>
+                    <option value="wedding">Wedding</option>
+                    <option value="corporate">Corporate Event</option>
+                    <option value="gala">Gala</option>
+                    <option value="fundraiser">Fundraiser</option>
+                    <option value="holiday-party">Holiday Party</option>
+                    <option value="birthday">Birthday / Celebration</option>
+                    <option value="networking">Networking Event</option>
+                    <option value="other">Other</option>
+                </select>
+            </div>
+            <div class="field">
+                <label>Event Date</label>
+                <input type="date" id="a-event-date" oninput="updateAll()">
+            </div>
+            <div class="field">
+                <label>Venue</label>
+                <input type="text" id="a-venue" placeholder="e.g., The Ritz-Carlton, Laguna Niguel" oninput="updateAll()">
+            </div>
+            <div class="field">
+                <label>Guest Count (approximate)</label>
+                <input type="text" id="a-guests" placeholder="e.g., 150" oninput="updateAll()">
+            </div>
+        </div>
+    </div>
+
+    <!-- Tabs -->
+    <div class="tabs">
+        <button class="tab active" onclick="switchTab('inquiry')">Inquiry Response</button>
+        <button class="tab" onclick="switchTab('followup')">Follow-Up</button>
+    </div>
+
+    <!-- Tab 1: Inquiry Response Email -->
+    <div class="tab-content active" id="tab-inquiry">
+        <div class="actions" style="margin-top: 0;">
+            <button class="btn" onclick="copyEmail('inquiry')">Copy Email</button>
+            <span class="copy-msg" id="inquiry-copy-msg">Copied!</span>
+        </div>
+        <div class="email-preview-wrap">
+            <p class="email-preview-label">Email Preview</p>
+            <div id="inquiry-email-preview">
+                <table width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color: #0a0a0a; padding: 20px 0;">
+                <tr><td align="center">
+                <table width="640" cellpadding="0" cellspacing="0" border="0" style="background-color: #0a0a0a;">
+                    <tr><td style="height: 30px;"></td></tr>
+                    <tr>
+                        <td style="text-align: center; padding: 0 40px;">
+                            <p style="margin: 0; font-family: 'Montserrat', Arial, sans-serif; font-size: 10px; letter-spacing: 0.5em; text-transform: uppercase; color: #c9a84c;">Portrait Lounge</p>
+                        </td>
+                    </tr>
+                    <tr><td style="height: 30px;"></td></tr>
+                    <tr>
+                        <td style="padding: 0 50px;">
+                            <img src="https://portraitloungelive.com/images/homepage/bokeh-5063.jpg" alt="" width="540" style="display: block; width: 100%; height: auto; border-radius: 2px;" />
+                        </td>
+                    </tr>
+                    <tr><td style="height: 40px;"></td></tr>
+                    <tr>
+                        <td style="text-align: center; padding: 0 50px;">
+                            <p style="margin: 0; font-family: Georgia, 'Times New Roman', serif; font-size: 32px; color: #ffffff; line-height: 1.2; font-weight: normal; letter-spacing: -0.01em;">
+                                Let's bring the studio to you.
+                            </p>
+                        </td>
+                    </tr>
+                    <tr><td style="height: 8px;"></td></tr>
+                    <tr>
+                        <td align="center">
+                            <table cellpadding="0" cellspacing="0" border="0"><tr>
+                                <td style="width: 40px; height: 1px; background-color: #c9a84c; font-size: 0;">&nbsp;</td>
+                            </tr></table>
+                        </td>
+                    </tr>
+                    <tr><td style="height: 30px;"></td></tr>
+                    <tr>
+                        <td style="padding: 0 50px;">
+                            <p style="margin: 0 0 22px 0; font-family: Arial, Helvetica, sans-serif; font-size: 15px; color: #b0b0b0; line-height: 1.8;">
+                                Hi <span id="iq-name">[NAME]</span>,
+                            </p>
+                            <p style="margin: 0 0 22px 0; font-family: Arial, Helvetica, sans-serif; font-size: 15px; color: #b0b0b0; line-height: 1.8;">
+                                Thank you so much for reaching out about Portrait Lounge for your <span style="color: #ffffff;" id="iq-event-body">[EVENT]</span><span id="iq-venue-line"> at <span style="color: #ffffff;" id="iq-venue-body">[VENUE]</span></span>. I would love to be part of it.
+                            </p>
+                            <p style="margin: 0 0 22px 0; font-family: Arial, Helvetica, sans-serif; font-size: 15px; color: #b0b0b0; line-height: 1.8;">
+                                Portrait Lounge is a full professional studio that comes to your event. Your guests step into a refined portrait experience with studio lighting, curated backdrops, and guided posing. Every portrait is edited and delivered, so your guests walk away with something they will actually want to frame.
+                            </p>
+                            <p style="margin: 0 0 22px 0; font-family: Arial, Helvetica, sans-serif; font-size: 15px; color: #b0b0b0; line-height: 1.8;">
+                                I have put together a few package options that would work well for your event. You can explore them below.
+                            </p>
+                        </td>
+                    </tr>
+                    <tr><td style="height: 10px;"></td></tr>
+                    <tr>
+                        <td style="padding: 0 50px;">
+                            <p style="margin: 0; font-family: Arial, Helvetica, sans-serif; font-size: 10px; letter-spacing: 0.3em; text-transform: uppercase; color: #c9a84c;">Event Details</p>
+                        </td>
+                    </tr>
+                    <tr><td style="height: 16px;"></td></tr>
+                    <tr>
+                        <td style="padding: 0 50px;">
+                            <table width="100%" cellpadding="0" cellspacing="0" border="0" style="border: 1px solid #222222; border-radius: 2px;">
+                                <tr>
+                                    <td style="padding: 28px 32px;">
+                                        <table width="100%" cellpadding="0" cellspacing="0" border="0">
+                                            <tr>
+                                                <td style="padding: 6px 0; font-family: Arial, Helvetica, sans-serif; font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: #666666; width: 120px; vertical-align: top;">Event</td>
+                                                <td style="padding: 6px 0; font-family: Arial, Helvetica, sans-serif; font-size: 14px; color: #ffffff;" id="iq-event-card">[EVENT TYPE]</td>
+                                            </tr>
+                                            <tr><td colspan="2" style="height: 1px; background-color: #1a1a1a; font-size: 0;">&nbsp;</td></tr>
+                                            <tr>
+                                                <td style="padding: 6px 0; font-family: Arial, Helvetica, sans-serif; font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: #666666; vertical-align: top;">Date</td>
+                                                <td style="padding: 6px 0; font-family: Arial, Helvetica, sans-serif; font-size: 14px; color: #ffffff;" id="iq-date-card">[DATE]</td>
+                                            </tr>
+                                            <tr><td colspan="2" style="height: 1px; background-color: #1a1a1a; font-size: 0;">&nbsp;</td></tr>
+                                            <tr id="iq-venue-row">
+                                                <td style="padding: 6px 0; font-family: Arial, Helvetica, sans-serif; font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: #666666; vertical-align: top;">Venue</td>
+                                                <td style="padding: 6px 0; font-family: Arial, Helvetica, sans-serif; font-size: 14px; color: #ffffff;" id="iq-venue-card">[VENUE]</td>
+                                            </tr>
+                                            <tr id="iq-venue-divider" style="display: none;"><td colspan="2" style="height: 1px; background-color: #1a1a1a; font-size: 0;">&nbsp;</td></tr>
+                                            <tr id="iq-guests-divider" style="display: none;"><td colspan="2" style="height: 1px; background-color: #1a1a1a; font-size: 0;">&nbsp;</td></tr>
+                                            <tr id="iq-guests-row" style="display: none;">
+                                                <td style="padding: 6px 0; font-family: Arial, Helvetica, sans-serif; font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: #666666; vertical-align: top;">Guests</td>
+                                                <td style="padding: 6px 0; font-family: Arial, Helvetica, sans-serif; font-size: 14px; color: #ffffff;" id="iq-guests-card"></td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                    <tr><td style="height: 40px;"></td></tr>
+                    <tr>
+                        <td style="padding: 0 50px;">
+                            <p style="margin: 0 0 22px 0; font-family: Arial, Helvetica, sans-serif; font-size: 15px; color: #b0b0b0; line-height: 1.8;">
+                                I would love to hop on a quick call to learn more about your vision and answer any questions. Just let me know what works best for your schedule.
+                            </p>
+                        </td>
+                    </tr>
+                    <tr><td style="height: 10px;"></td></tr>
+                    <tr>
+                        <td align="center" style="padding: 0 50px;">
+                            <table cellpadding="0" cellspacing="0" border="0">
+                                <tr>
+                                    <td align="center" style="background-color: #c9a84c; border-radius: 2px;">
+                                        <a href="https://portraitloungelive.com/packages.html" target="_blank" style="display: inline-block; padding: 16px 48px; font-family: Arial, Helvetica, sans-serif; font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: #0a0a0a; text-decoration: none; font-weight: bold;">View Packages</a>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                    <tr><td style="height: 40px;"></td></tr>
+                    <tr>
+                        <td style="padding: 0;">
+                            <img src="https://portraitloungelive.com/images/homepage/pll-5.jpg" alt="" width="640" style="display: block; width: 100%; height: 220px; object-fit: cover;" />
+                        </td>
+                    </tr>
+                    <tr><td style="height: 40px;"></td></tr>
+                    <tr>
+                        <td style="padding: 0 50px;">
+                            <p style="margin: 0 0 4px 0; font-family: Arial, Helvetica, sans-serif; font-size: 15px; color: #b0b0b0;">Talk soon,</p>
+                            <p style="margin: 0; font-family: Georgia, 'Times New Roman', serif; font-size: 20px; color: #ffffff;">G</p>
+                            <p style="margin: 6px 0 0 0; font-family: Arial, Helvetica, sans-serif; font-size: 10px; color: #666666; letter-spacing: 0.3em; text-transform: uppercase;">Portrait Lounge</p>
+                        </td>
+                    </tr>
+                    <tr><td style="height: 40px;"></td></tr>
+                    <tr>
+                        <td style="text-align: center; padding: 25px 50px; border-top: 1px solid #151515;">
+                            <p style="margin: 0 0 6px 0; font-family: Arial, Helvetica, sans-serif; font-size: 12px;">
+                                <a href="https://portraitloungelive.com" style="color: #c9a84c; text-decoration: none; letter-spacing: 0.05em;">portraitloungelive.com</a>
+                            </p>
+                            <p style="margin: 0; font-family: Arial, Helvetica, sans-serif; font-size: 11px; color: #444444;">
+                                Orange County &middot; Los Angeles &middot; Beyond
+                            </p>
+                        </td>
+                    </tr>
+                    <tr><td style="height: 20px;"></td></tr>
+                </table>
+                </td></tr>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- Tab 2: Follow-Up Email -->
+    <div class="tab-content" id="tab-followup">
+        <div class="actions" style="margin-top: 0;">
+            <button class="btn" onclick="copyEmail('followup')">Copy Email</button>
+            <span class="copy-msg" id="followup-copy-msg">Copied!</span>
+        </div>
+        <div class="email-preview-wrap">
+            <p class="email-preview-label">Email Preview</p>
+            <div id="followup-email-preview">
+                <table width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color: #0a0a0a; padding: 20px 0;">
+                <tr><td align="center">
+                <table width="640" cellpadding="0" cellspacing="0" border="0" style="background-color: #0a0a0a;">
+                    <tr><td style="height: 30px;"></td></tr>
+                    <tr>
+                        <td style="text-align: center; padding: 0 40px;">
+                            <p style="margin: 0; font-family: 'Montserrat', Arial, sans-serif; font-size: 10px; letter-spacing: 0.5em; text-transform: uppercase; color: #c9a84c;">Portrait Lounge</p>
+                        </td>
+                    </tr>
+                    <tr><td style="height: 30px;"></td></tr>
+                    <tr>
+                        <td style="padding: 0 50px;">
+                            <img src="https://portraitloungelive.com/images/homepage/pll-7.jpg" alt="" width="540" style="display: block; width: 100%; height: auto; border-radius: 2px;" />
+                        </td>
+                    </tr>
+                    <tr><td style="height: 40px;"></td></tr>
+                    <tr>
+                        <td style="text-align: center; padding: 0 50px;">
+                            <p style="margin: 0; font-family: Georgia, 'Times New Roman', serif; font-size: 32px; color: #ffffff; line-height: 1.2; font-weight: normal; letter-spacing: -0.01em;">
+                                Just checking in.
+                            </p>
+                        </td>
+                    </tr>
+                    <tr><td style="height: 8px;"></td></tr>
+                    <tr>
+                        <td align="center">
+                            <table cellpadding="0" cellspacing="0" border="0"><tr>
+                                <td style="width: 40px; height: 1px; background-color: #c9a84c; font-size: 0;">&nbsp;</td>
+                            </tr></table>
+                        </td>
+                    </tr>
+                    <tr><td style="height: 30px;"></td></tr>
+                    <tr>
+                        <td style="padding: 0 50px;">
+                            <p style="margin: 0 0 22px 0; font-family: Arial, Helvetica, sans-serif; font-size: 15px; color: #b0b0b0; line-height: 1.8;">
+                                Hi <span id="fu-name">[NAME]</span>,
+                            </p>
+                            <p style="margin: 0 0 22px 0; font-family: Arial, Helvetica, sans-serif; font-size: 15px; color: #b0b0b0; line-height: 1.8;">
+                                I wanted to follow up on my last email about Portrait Lounge for your <span style="color: #ffffff;" id="fu-event-body">[EVENT]</span><span id="fu-date-line"> on <span style="color: #ffffff;" id="fu-date-body">[DATE]</span></span>. I know event planning is busy, so no rush at all.
+                            </p>
+                            <p style="margin: 0 0 22px 0; font-family: Arial, Helvetica, sans-serif; font-size: 15px; color: #b0b0b0; line-height: 1.8;">
+                                If you have any questions about how Portrait Lounge works or want to chat through the details, I am happy to hop on a quick call whenever it is convenient.
+                            </p>
+                            <p style="margin: 0 0 22px 0; font-family: Arial, Helvetica, sans-serif; font-size: 15px; color: #b0b0b0; line-height: 1.8;">
+                                In the meantime, here is a peek at some recent events:
+                            </p>
+                        </td>
+                    </tr>
+                    <tr><td style="height: 10px;"></td></tr>
+                    <tr>
+                        <td style="padding: 0 50px;">
+                            <table width="100%" cellpadding="0" cellspacing="0" border="0">
+                                <tr>
+                                    <td width="32%" style="padding: 0;">
+                                        <img src="https://portraitloungelive.com/images/homepage/pll-1.jpg" alt="" width="164" style="display: block; width: 100%; height: 180px; object-fit: cover; border-radius: 2px;" />
+                                    </td>
+                                    <td width="2%"></td>
+                                    <td width="32%" style="padding: 0;">
+                                        <img src="https://portraitloungelive.com/images/homepage/pll-4.jpg" alt="" width="164" style="display: block; width: 100%; height: 180px; object-fit: cover; border-radius: 2px;" />
+                                    </td>
+                                    <td width="2%"></td>
+                                    <td width="32%" style="padding: 0;">
+                                        <img src="https://portraitloungelive.com/images/homepage/pll-6.jpg" alt="" width="164" style="display: block; width: 100%; height: 180px; object-fit: cover; border-radius: 2px;" />
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                    <tr><td style="height: 40px;"></td></tr>
+                    <tr>
+                        <td align="center" style="padding: 0 50px;">
+                            <table cellpadding="0" cellspacing="0" border="0">
+                                <tr>
+                                    <td align="center" style="background-color: #c9a84c; border-radius: 2px;">
+                                        <a href="https://portraitloungelive.com/#contact" target="_blank" style="display: inline-block; padding: 16px 48px; font-family: Arial, Helvetica, sans-serif; font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: #0a0a0a; text-decoration: none; font-weight: bold;">Book Your Event</a>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                    <tr><td style="height: 40px;"></td></tr>
+                    <tr>
+                        <td style="padding: 0 50px;">
+                            <p style="margin: 0 0 4px 0; font-family: Arial, Helvetica, sans-serif; font-size: 15px; color: #b0b0b0;">Talk soon,</p>
+                            <p style="margin: 0; font-family: Georgia, 'Times New Roman', serif; font-size: 20px; color: #ffffff;">G</p>
+                            <p style="margin: 6px 0 0 0; font-family: Arial, Helvetica, sans-serif; font-size: 10px; color: #666666; letter-spacing: 0.3em; text-transform: uppercase;">Portrait Lounge</p>
+                        </td>
+                    </tr>
+                    <tr><td style="height: 40px;"></td></tr>
+                    <tr>
+                        <td style="text-align: center; padding: 25px 50px; border-top: 1px solid #151515;">
+                            <p style="margin: 0 0 6px 0; font-family: Arial, Helvetica, sans-serif; font-size: 12px;">
+                                <a href="https://portraitloungelive.com" style="color: #c9a84c; text-decoration: none; letter-spacing: 0.05em;">portraitloungelive.com</a>
+                            </p>
+                            <p style="margin: 0; font-family: Arial, Helvetica, sans-serif; font-size: 11px; color: #444444;">
+                                Orange County &middot; Los Angeles &middot; Beyond
+                            </p>
+                        </td>
+                    </tr>
+                    <tr><td style="height: 20px;"></td></tr>
+                </table>
+                </td></tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+// Password
+document.getElementById('admin-password').addEventListener('keydown', function(e) {
+    if (e.key === 'Enter') checkPassword();
+});
+function checkPassword() {
+    if (document.getElementById('admin-password').value === 'portrait2025') {
+        document.getElementById('password-overlay').style.display = 'none';
+        document.getElementById('dashboard').style.display = 'block';
+    } else {
+        document.getElementById('pw-error').style.display = 'block';
+    }
+}
+
+// Tabs
+function switchTab(tab) {
+    document.querySelectorAll('.tab').forEach(function(t) { t.classList.remove('active'); });
+    document.querySelectorAll('.tab-content').forEach(function(t) { t.classList.remove('active'); });
+    var tabMap = { 'inquiry': 0, 'followup': 1 };
+    document.querySelectorAll('.tab')[tabMap[tab]].classList.add('active');
+    document.getElementById('tab-' + tab).classList.add('active');
+}
+
+// Event type display names
+var eventTypeLabels = {
+    'wedding': 'wedding',
+    'corporate': 'corporate event',
+    'gala': 'gala',
+    'fundraiser': 'fundraiser',
+    'holiday-party': 'holiday party',
+    'birthday': 'celebration',
+    'networking': 'networking event',
+    'other': 'event'
+};
+
+// Format date for display
+function formatDate(dateStr) {
+    if (!dateStr) return '';
+    var d = new Date(dateStr + 'T00:00:00');
+    return d.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
+}
+
+// Capitalize first letter
+function capitalize(str) {
+    return str.charAt(0).toUpperCase() + str.slice(1);
+}
+
+// Update all previews from form
+function updateAll() {
+    var name = document.getElementById('a-client-name').value || '[NAME]';
+    var eventType = document.getElementById('a-event-type').value;
+    var eventLabel = eventType ? eventTypeLabels[eventType] : '[EVENT]';
+    var eventLabelCap = eventType ? capitalize(eventTypeLabels[eventType]) : '[EVENT TYPE]';
+    var eventDate = document.getElementById('a-event-date').value;
+    var dateDisplay = eventDate ? formatDate(eventDate) : '[DATE]';
+    var venue = document.getElementById('a-venue').value;
+    var guests = document.getElementById('a-guests').value;
+
+    // Inquiry Response email
+    document.getElementById('iq-name').textContent = name;
+    document.getElementById('iq-event-body').textContent = eventLabel;
+    document.getElementById('iq-event-card').textContent = eventLabelCap;
+    document.getElementById('iq-date-card').textContent = dateDisplay;
+
+    // Venue line in body text
+    var venueLine = document.getElementById('iq-venue-line');
+    if (venue) {
+        venueLine.style.display = 'inline';
+        document.getElementById('iq-venue-body').textContent = venue;
+        document.getElementById('iq-venue-card').textContent = venue;
+        document.getElementById('iq-venue-row').style.display = '';
+    } else {
+        venueLine.style.display = 'none';
+        document.getElementById('iq-venue-card').textContent = 'TBD';
+        document.getElementById('iq-venue-row').style.display = '';
+    }
+
+    // Show venue divider only if guests row is visible
+    document.getElementById('iq-venue-divider').style.display = guests ? '' : 'none';
+
+    // Guests
+    if (guests) {
+        document.getElementById('iq-guests-card').textContent = '~' + guests + ' guests';
+        document.getElementById('iq-guests-row').style.display = '';
+        document.getElementById('iq-guests-divider').style.display = '';
+    } else {
+        document.getElementById('iq-guests-row').style.display = 'none';
+        document.getElementById('iq-guests-divider').style.display = 'none';
+    }
+
+    // Follow-Up email
+    document.getElementById('fu-name').textContent = name;
+    document.getElementById('fu-event-body').textContent = eventLabel;
+
+    var dateLine = document.getElementById('fu-date-line');
+    if (eventDate) {
+        dateLine.style.display = 'inline';
+        document.getElementById('fu-date-body').textContent = dateDisplay;
+    } else {
+        dateLine.style.display = 'none';
+    }
+}
+
+// Copy email
+function copyEmail(type) {
+    var previewId = type === 'inquiry' ? 'inquiry-email-preview' : 'followup-email-preview';
+    var msgId = type === 'inquiry' ? 'inquiry-copy-msg' : 'followup-copy-msg';
+    var content = document.getElementById(previewId);
+    var range = document.createRange();
+    range.selectNodeContents(content);
+    var sel = window.getSelection();
+    sel.removeAllRanges();
+    sel.addRange(range);
+    document.execCommand('copy');
+    sel.removeAllRanges();
+
+    var msg = document.getElementById(msgId);
+    msg.style.display = 'inline';
+    setTimeout(function() { msg.style.display = 'none'; }, 2000);
+}
+</script>
+</body>
+</html>

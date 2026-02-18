@@ -1,0 +1,1247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-J33PNRJZ3V"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-J33PNRJZ3V');
+    </script>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Experience | Portrait Lounge</title>
+    <meta name="robots" content="noindex, nofollow">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/jpeg" href="images/favicon.jpg">
+    <link rel="apple-touch-icon" href="images/favicon.jpg">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@200;300;400;500;600&display=swap" rel="stylesheet">
+
+    <style>
+        @font-face {
+            font-family: 'Perandory';
+            src: url('fonts/PerandorySemiCondensed.otf') format('opentype');
+            font-weight: normal;
+            font-style: normal;
+            font-display: swap;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --black: #0a0a0a;
+            --dark: #111111;
+            --dark-surface: #1a1a1a;
+            --white: #ffffff;
+            --off-white: #fafafa;
+            --cream: #f5f0e8;
+            --gray-100: #f5f5f5;
+            --gray-200: #e5e5e5;
+            --gray-300: #d4d4d4;
+            --gray-400: #737373;
+            --gray-600: #525252;
+            --gold: #c9a84c;
+            --gold-dark: #b8952a;
+            --gold-light: #d4b96a;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            color: var(--cream);
+            background-color: var(--black);
+            line-height: 1.6;
+            overflow-x: hidden;
+            font-weight: 300;
+            letter-spacing: 0.02em;
+        }
+
+        h1, h2, h3 {
+            font-family: 'Perandory', serif;
+            font-weight: 400;
+            letter-spacing: 0.05em;
+        }
+
+        h2 em, h1 em {
+            font-style: italic;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        /* ==================== NAVIGATION ==================== */
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 24px 48px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            transition: all 0.4s ease;
+            background: transparent;
+        }
+
+        .navbar.scrolled {
+            background: rgba(10, 10, 10, 0.95);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            padding: 16px 48px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+        }
+
+        .logo {
+            font-family: 'Perandory', serif;
+            font-size: 22px;
+            letter-spacing: 0.25em;
+            color: var(--gold);
+            text-decoration: none;
+            text-transform: uppercase;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 48px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--cream);
+            font-size: 11px;
+            font-weight: 400;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            position: relative;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background: var(--gold);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--gold);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 8px;
+        }
+
+        .mobile-menu-btn span {
+            display: block;
+            width: 24px;
+            height: 1.5px;
+            background: var(--cream);
+            margin: 6px 0;
+            transition: 0.3s;
+        }
+
+        .mobile-nav {
+            display: none;
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 100%;
+            height: 100vh;
+            background: var(--black);
+            z-index: 2000;
+            transition: right 0.4s ease;
+            flex-direction: column;
+            padding: 100px 40px 40px;
+        }
+
+        .mobile-nav.active {
+            right: 0;
+        }
+
+        .mobile-nav-close {
+            position: absolute;
+            top: 24px;
+            right: 24px;
+            background: none;
+            border: none;
+            font-size: 32px;
+            cursor: pointer;
+            color: var(--cream);
+        }
+
+        .mobile-nav a {
+            display: block;
+            padding: 20px 0;
+            font-size: 13px;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            text-decoration: none;
+            color: var(--cream);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            transition: color 0.3s ease;
+        }
+
+        .mobile-nav a:hover {
+            color: var(--gold);
+        }
+
+        /* ==================== HERO ==================== */
+        .exp-hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 160px 24px 100px;
+            position: relative;
+            overflow: hidden;
+            background: var(--black);
+        }
+
+        .exp-hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 700px;
+        }
+
+        .exp-hero-label {
+            font-size: 11px;
+            font-weight: 400;
+            letter-spacing: 0.35em;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 16px;
+        }
+
+        .exp-hero-label::before,
+        .exp-hero-label::after {
+            content: '';
+            width: 40px;
+            height: 1px;
+            background: var(--gold);
+        }
+
+        .exp-hero h1 {
+            font-size: clamp(3rem, 8vw, 6rem);
+            line-height: 0.95;
+            letter-spacing: 0.08em;
+            margin-bottom: 32px;
+            text-transform: uppercase;
+        }
+
+        .exp-hero-text {
+            font-size: 16px;
+            font-weight: 300;
+            color: var(--cream);
+            max-width: 520px;
+            margin: 0 auto;
+            line-height: 1.9;
+            opacity: 0.85;
+        }
+
+        /* Floating images */
+        .hero-float-img {
+            position: absolute;
+            z-index: 1;
+            border-radius: 4px;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+        }
+
+        .hero-float-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .hero-float-1 {
+            width: 220px;
+            height: 300px;
+            top: 10%;
+            left: 5%;
+            transform: rotate(-4deg);
+            opacity: 0.4;
+            animation: heroFloat1 8s ease-in-out infinite;
+        }
+
+        .hero-float-2 {
+            width: 180px;
+            height: 250px;
+            top: 8%;
+            right: 6%;
+            transform: rotate(3deg);
+            opacity: 0.35;
+            animation: heroFloat2 9s ease-in-out infinite;
+        }
+
+        .hero-float-3 {
+            width: 200px;
+            height: 280px;
+            bottom: 10%;
+            left: 8%;
+            transform: rotate(2deg);
+            opacity: 0.3;
+            animation: heroFloat3 10s ease-in-out infinite;
+        }
+
+        .hero-float-4 {
+            width: 190px;
+            height: 260px;
+            bottom: 12%;
+            right: 5%;
+            transform: rotate(-3deg);
+            opacity: 0.35;
+            animation: heroFloat4 8.5s ease-in-out infinite;
+        }
+
+        @keyframes heroFloat1 {
+            0%, 100% { transform: rotate(-4deg) translateY(0); }
+            50% { transform: rotate(-4deg) translateY(-15px); }
+        }
+
+        @keyframes heroFloat2 {
+            0%, 100% { transform: rotate(3deg) translateY(0); }
+            50% { transform: rotate(3deg) translateY(-12px); }
+        }
+
+        @keyframes heroFloat3 {
+            0%, 100% { transform: rotate(2deg) translateY(0); }
+            50% { transform: rotate(2deg) translateY(-18px); }
+        }
+
+        @keyframes heroFloat4 {
+            0%, 100% { transform: rotate(-3deg) translateY(0); }
+            50% { transform: rotate(-3deg) translateY(-10px); }
+        }
+
+        .exp-scroll-hint {
+            position: absolute;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 2;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            color: var(--gray-400);
+            font-size: 9px;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+        }
+
+        .exp-scroll-hint .scroll-line {
+            width: 1px;
+            height: 40px;
+            background: linear-gradient(to bottom, var(--gold), transparent);
+            animation: scrollPulse 2s ease-in-out infinite;
+        }
+
+        @keyframes scrollPulse {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 1; }
+        }
+
+        /* ==================== INTRO ==================== */
+        .exp-intro {
+            padding: 120px 48px;
+            text-align: center;
+            background: var(--dark-surface);
+        }
+
+        .exp-intro-inner {
+            max-width: 680px;
+            margin: 0 auto;
+        }
+
+        .section-label {
+            font-size: 11px;
+            font-weight: 400;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 24px;
+        }
+
+        .exp-intro h2 {
+            font-size: clamp(2rem, 4vw, 3rem);
+            line-height: 1.15;
+            margin-bottom: 32px;
+        }
+
+        .exp-intro p {
+            font-size: 15px;
+            line-height: 1.9;
+            color: rgba(245, 240, 232, 0.75);
+            margin-bottom: 20px;
+        }
+
+        /* ==================== TIMELINE ==================== */
+        .exp-timeline {
+            padding: 120px 48px;
+            background: var(--black);
+            position: relative;
+        }
+
+        .exp-timeline-inner {
+            max-width: 1100px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        /* Vertical center line */
+        .exp-timeline-inner::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 1px;
+            background: rgba(201, 168, 76, 0.2);
+            transform: translateX(-50%);
+        }
+
+        .timeline-step {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            align-items: center;
+            position: relative;
+            margin-bottom: 120px;
+        }
+
+        .timeline-step:last-child {
+            margin-bottom: 0;
+        }
+
+        /* Gold dot on timeline */
+        .timeline-dot {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: var(--gold);
+            transform: translate(-50%, -50%);
+            z-index: 2;
+        }
+
+        .timeline-dot::after {
+            content: '';
+            position: absolute;
+            top: -4px;
+            left: -4px;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            border: 1px solid var(--gold);
+            opacity: 0.3;
+        }
+
+        .timeline-text {
+            padding-right: 60px;
+        }
+
+        .timeline-step:nth-child(even) .timeline-text {
+            padding-right: 0;
+            padding-left: 60px;
+            order: 2;
+        }
+
+        .timeline-step:nth-child(even) .timeline-image {
+            order: 1;
+        }
+
+        .timeline-number {
+            font-family: 'Perandory', serif;
+            font-size: 56px;
+            color: var(--gold);
+            opacity: 0.25;
+            line-height: 1;
+            margin-bottom: 20px;
+        }
+
+        .timeline-text h3 {
+            font-size: clamp(1.5rem, 3vw, 2.2rem);
+            line-height: 1.15;
+            margin-bottom: 20px;
+        }
+
+        .timeline-text p {
+            font-size: 15px;
+            line-height: 1.9;
+            color: rgba(245, 240, 232, 0.7);
+        }
+
+        .timeline-image {
+            overflow: hidden;
+            border-radius: 4px;
+        }
+
+        .timeline-image img {
+            width: 100%;
+            aspect-ratio: 4/5;
+            object-fit: cover;
+            transition: transform 0.6s ease;
+        }
+
+        .timeline-image:hover img {
+            transform: scale(1.02);
+        }
+
+        /* ==================== COLLECTIONS ==================== */
+        .exp-collections {
+            padding: 120px 48px;
+            background: var(--dark-surface);
+        }
+
+        .exp-collections-header {
+            text-align: center;
+            max-width: 600px;
+            margin: 0 auto 80px;
+        }
+
+        .exp-collections-header h2 {
+            font-size: clamp(2rem, 4vw, 3.5rem);
+            margin-bottom: 16px;
+        }
+
+        .exp-collections-header p {
+            font-size: 15px;
+            color: rgba(245, 240, 232, 0.7);
+        }
+
+        .exp-collections-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .exp-card {
+            background: var(--dark);
+            padding: 48px 36px;
+            border-radius: 4px;
+            position: relative;
+            transition: all 0.4s ease;
+            border-top: 2px solid transparent;
+        }
+
+        .exp-card:hover {
+            border-top-color: var(--gold);
+            transform: translateY(-4px);
+        }
+
+        .exp-card.featured {
+            border-top: 2px solid var(--gold);
+        }
+
+        .exp-card-number {
+            font-family: 'Perandory', serif;
+            font-size: 36px;
+            color: var(--gold);
+            opacity: 0.3;
+            margin-bottom: 24px;
+        }
+
+        .exp-card h3 {
+            font-size: 24px;
+            letter-spacing: 0.05em;
+            margin-bottom: 12px;
+        }
+
+        .exp-card-price {
+            font-family: 'Perandory', serif;
+            font-size: 32px;
+            color: var(--gold);
+            margin-bottom: 24px;
+            letter-spacing: 0.02em;
+        }
+
+        .exp-card-features {
+            list-style: none;
+            margin-bottom: 24px;
+        }
+
+        .exp-card-features li {
+            font-size: 14px;
+            line-height: 1.6;
+            color: rgba(245, 240, 232, 0.65);
+            padding: 8px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+            padding-left: 20px;
+            position: relative;
+        }
+
+        .exp-card-features li::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 15px;
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: var(--gold);
+            opacity: 0.5;
+        }
+
+        .popular-badge {
+            display: inline-block;
+            margin-top: 8px;
+            padding: 8px 20px;
+            border: 1px solid var(--gold);
+            color: var(--gold);
+            font-size: 9px;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+        }
+
+        .section-cta {
+            text-align: center;
+            margin-top: 80px;
+        }
+
+        .cta-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 16px;
+            padding: 18px 40px;
+            background: var(--gold);
+            color: var(--black);
+            border-radius: 50px;
+            font-size: 11px;
+            font-weight: 500;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            text-decoration: none;
+            transition: all 0.4s ease;
+            border: none;
+            cursor: pointer;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .cta-button:hover {
+            background: var(--gold-light);
+            letter-spacing: 0.35em;
+        }
+
+        .cta-button svg {
+            width: 16px;
+            height: 16px;
+            transition: transform 0.4s ease;
+        }
+
+        .cta-button:hover svg {
+            transform: translateX(6px);
+        }
+
+        /* ==================== PORTFOLIO STRIP ==================== */
+        .exp-portfolio-strip {
+            padding: 0;
+            background: var(--black);
+        }
+
+        .exp-portfolio-row {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 0;
+        }
+
+        .exp-portfolio-row img {
+            width: 100%;
+            aspect-ratio: 3/4;
+            object-fit: cover;
+            display: block;
+        }
+
+        /* ==================== READY TO BOOK ==================== */
+        .exp-cta-section {
+            padding: 120px 48px;
+            background: var(--dark-surface);
+            text-align: center;
+        }
+
+        .exp-cta-section h2 {
+            font-size: clamp(2rem, 4vw, 3.5rem);
+            margin-bottom: 24px;
+        }
+
+        .exp-cta-section > p,
+        .exp-cta-inner > p {
+            font-size: 15px;
+            line-height: 1.8;
+            color: rgba(245, 240, 232, 0.7);
+            max-width: 500px;
+            margin: 0 auto 40px;
+        }
+
+        .exp-cta-inner {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .exp-cta-contact {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+            margin-top: 48px;
+        }
+
+        .exp-cta-contact a {
+            color: var(--cream);
+            font-size: 14px;
+            transition: color 0.3s ease;
+        }
+
+        .exp-cta-contact a:hover {
+            color: var(--gold);
+        }
+
+        /* ==================== FOOTER ==================== */
+        .exp-footer {
+            padding: 40px 48px;
+            background: var(--black);
+            border-top: 1px solid rgba(255, 255, 255, 0.06);
+            text-align: center;
+        }
+
+        .exp-footer-logo {
+            font-family: 'Perandory', serif;
+            font-size: 18px;
+            letter-spacing: 0.25em;
+            color: var(--gold);
+            display: block;
+            margin-bottom: 12px;
+            text-transform: uppercase;
+        }
+
+        .exp-footer p {
+            font-size: 12px;
+            color: var(--gray-400);
+        }
+
+        .exp-footer-social {
+            margin-top: 12px;
+        }
+
+        .exp-footer-social a {
+            color: var(--gray-400);
+            font-size: 12px;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            transition: color 0.3s ease;
+        }
+
+        .exp-footer-social a:hover {
+            color: var(--gold);
+        }
+
+        /* ==================== ANIMATIONS ==================== */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 1s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .stagger-1 { transition-delay: 0.1s; }
+        .stagger-2 { transition-delay: 0.2s; }
+        .stagger-3 { transition-delay: 0.3s; }
+
+        /* ==================== RESPONSIVE: TABLET ==================== */
+        @media (max-width: 1024px) {
+            .navbar {
+                padding: 20px 32px;
+            }
+
+            .timeline-step {
+                gap: 48px;
+                margin-bottom: 80px;
+            }
+
+            .timeline-text {
+                padding-right: 40px;
+            }
+
+            .timeline-step:nth-child(even) .timeline-text {
+                padding-left: 40px;
+            }
+
+            .hero-float-1 {
+                width: 160px;
+                height: 220px;
+            }
+
+            .hero-float-2 {
+                width: 140px;
+                height: 190px;
+            }
+
+            .hero-float-3 {
+                width: 150px;
+                height: 210px;
+            }
+
+            .hero-float-4 {
+                width: 140px;
+                height: 200px;
+            }
+
+            .exp-collections-grid {
+                gap: 16px;
+            }
+
+            .exp-card {
+                padding: 36px 28px;
+            }
+
+            .exp-portfolio-row {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        /* ==================== RESPONSIVE: MOBILE ==================== */
+        @media (max-width: 768px) {
+            .navbar {
+                padding: 16px 24px;
+            }
+
+            .logo {
+                font-size: 16px;
+                letter-spacing: 0.2em;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            .mobile-nav {
+                display: flex;
+            }
+
+            .exp-hero {
+                padding: 120px 24px 80px;
+                min-height: auto;
+            }
+
+            .exp-hero h1 {
+                font-size: clamp(2.5rem, 12vw, 4rem);
+            }
+
+            .hero-float-img {
+                display: none;
+            }
+
+            .exp-scroll-hint {
+                display: none;
+            }
+
+            .exp-intro {
+                padding: 80px 24px;
+            }
+
+            .exp-timeline {
+                padding: 80px 24px;
+            }
+
+            .exp-timeline-inner::before {
+                left: 20px;
+            }
+
+            .timeline-step {
+                grid-template-columns: 1fr;
+                gap: 32px;
+                margin-bottom: 80px;
+                padding-left: 52px;
+            }
+
+            .timeline-dot {
+                left: 20px;
+                top: 0;
+                transform: translateX(-50%);
+            }
+
+            .timeline-text {
+                padding-right: 0;
+            }
+
+            .timeline-step:nth-child(even) .timeline-text {
+                padding-left: 0;
+                order: 1;
+            }
+
+            .timeline-step:nth-child(even) .timeline-image {
+                order: 2;
+            }
+
+            .exp-collections {
+                padding: 80px 24px;
+            }
+
+            .exp-collections-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .exp-portfolio-row {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .exp-cta-section {
+                padding: 80px 24px;
+            }
+
+            .exp-footer {
+                padding: 32px 24px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar" role="navigation" aria-label="Main navigation">
+        <a href="/" class="logo" aria-label="Portrait Lounge - Home">Portrait Lounge</a>
+        <ul class="nav-links">
+            <li><a href="#journey">The Journey</a></li>
+            <li><a href="#collections">Packages</a></li>
+            <li><a href="/#contact">Book Now</a></li>
+        </ul>
+        <button class="mobile-menu-btn" aria-label="Open menu" aria-expanded="false">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+    </nav>
+
+    <!-- Mobile Navigation -->
+    <div class="mobile-nav" id="mobileNav" role="navigation" aria-label="Mobile navigation">
+        <button class="mobile-nav-close" aria-label="Close menu">&times;</button>
+        <a href="#journey">The Journey</a>
+        <a href="#collections">Packages</a>
+        <a href="/#contact">Book Now</a>
+    </div>
+
+    <!-- Main Content -->
+    <main>
+
+        <!-- ==================== HERO ==================== -->
+        <section class="exp-hero" aria-label="The Portrait Lounge Experience">
+            <div class="hero-float-img hero-float-1">
+                <img src="images/homepage/pll-1.jpg" alt="" loading="eager" decoding="async">
+            </div>
+            <div class="hero-float-img hero-float-2">
+                <img src="images/homepage/bokeh-5036.jpg" alt="" loading="eager" decoding="async">
+            </div>
+            <div class="hero-float-img hero-float-3">
+                <img src="images/homepage/pll-3.jpg" alt="" loading="eager" decoding="async">
+            </div>
+            <div class="hero-float-img hero-float-4">
+                <img src="images/homepage/pll-6.jpg" alt="" loading="eager" decoding="async">
+            </div>
+            <div class="exp-hero-content">
+                <div class="exp-hero-label fade-in">Portrait Lounge</div>
+                <h1 class="fade-in stagger-1">The<br><em>Experience</em></h1>
+                <p class="exp-hero-text fade-in stagger-2">Thank you for your inquiry. This is your personal guide to the Portrait Lounge experience, from first conversation to final gallery.</p>
+            </div>
+            <div class="exp-scroll-hint" aria-hidden="true">
+                <div class="scroll-line"></div>
+            </div>
+        </section>
+
+        <!-- ==================== INTRO ==================== -->
+        <section class="exp-intro">
+            <div class="exp-intro-inner">
+                <div class="section-label fade-in">Why Portrait Lounge</div>
+                <h2 class="fade-in">More than a<br><em>photo booth</em></h2>
+                <p class="fade-in stagger-1">Your guests showed up for you. They got dressed, made the drive, and cleared their whole evening. They deserve more than a strip of blurry selfies from an unattended booth in the corner.</p>
+                <p class="fade-in stagger-2">Portrait Lounge brings a complete professional studio to your event. Refined sets, studio lighting, and a photographer who guides every pose. The result? Editorial portraits your guests will actually want to frame.</p>
+            </div>
+        </section>
+
+        <!-- ==================== TIMELINE ==================== -->
+        <section class="exp-timeline" id="journey" aria-labelledby="journey-heading">
+            <div class="exp-timeline-inner">
+
+                <!-- Step 01 -->
+                <div class="timeline-step fade-in">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-text">
+                        <div class="timeline-number">01</div>
+                        <h3>Consultation</h3>
+                        <p>We start with a quick call or email to learn about your event: the vibe, the guest count, the venue, and what matters most to you. From there, we put together a custom plan that fits your vision and budget.</p>
+                    </div>
+                    <div class="timeline-image">
+                        <img src="images/homepage/bokeh-5042.jpg" alt="Portrait Lounge consultation and planning" loading="lazy" decoding="async">
+                    </div>
+                </div>
+
+                <!-- Step 02 -->
+                <div class="timeline-step fade-in">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-text">
+                        <div class="timeline-number">02</div>
+                        <h3>We Set the Stage</h3>
+                        <p>Before your guests arrive, we build a full studio at your venue. Custom backdrops, professional lighting, and everything dialed in to match the look and feel of your event. All your guests see is a beautiful, ready-to-go portrait experience.</p>
+                    </div>
+                    <div class="timeline-image">
+                        <img src="images/homepage/bokeh-5053.jpg" alt="Portrait Lounge team setting up studio at an event venue" loading="lazy" decoding="async">
+                    </div>
+                </div>
+
+                <!-- Step 03 -->
+                <div class="timeline-step fade-in">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-text">
+                        <div class="timeline-number">03</div>
+                        <h3>Guided Portraits</h3>
+                        <p>Your guests step in and our photographer takes over. Simple direction, natural poses, real smiles. Whether it is a couple, a group, or an individual headshot, every person walks away looking their absolute best.</p>
+                    </div>
+                    <div class="timeline-image">
+                        <img src="images/homepage/pll-4.jpg" alt="Photographer guiding a guest during a portrait session" loading="lazy" decoding="async">
+                    </div>
+                </div>
+
+                <!-- Step 04 -->
+                <div class="timeline-step fade-in">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-text">
+                        <div class="timeline-number">04</div>
+                        <h3>Instant Delivery</h3>
+                        <p>With our Signature and Bespoke packages, guests receive prints on-site before they leave. No waiting, no wondering. They walk away from your event with a beautifully framed keepsake in hand.</p>
+                    </div>
+                    <div class="timeline-image">
+                        <img src="images/homepage/pll-5.jpg" alt="Guest receiving a printed portrait at a Portrait Lounge event" loading="lazy" decoding="async">
+                    </div>
+                </div>
+
+                <!-- Step 05 -->
+                <div class="timeline-step fade-in">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-text">
+                        <div class="timeline-number">05</div>
+                        <h3>Your Gallery</h3>
+                        <p>Within 48 hours of your event, you receive a full digital gallery of every edited portrait. Share it with your guests, post your favorites, or keep them as a personal collection from the night.</p>
+                    </div>
+                    <div class="timeline-image">
+                        <img src="images/homepage/pll-7.jpg" alt="Edited portrait gallery from a Portrait Lounge event" loading="lazy" decoding="async">
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- ==================== COLLECTIONS ==================== -->
+        <section id="collections" class="exp-collections" aria-labelledby="collections-heading">
+            <div class="exp-collections-header">
+                <div class="section-label fade-in">Pricing</div>
+                <h2 id="collections-heading" class="fade-in">The <em>Collections</em></h2>
+                <p class="fade-in stagger-1">Every event is different. Choose the experience that fits yours.</p>
+            </div>
+            <div class="exp-collections-grid">
+                <!-- Lowest first -->
+                <article class="exp-card fade-in stagger-1">
+                    <div class="exp-card-number" aria-hidden="true">01</div>
+                    <h3>Digital Experience</h3>
+                    <p class="exp-card-price">$1,200</p>
+                    <ul class="exp-card-features">
+                        <li>Professional studio setup</li>
+                        <li>Dedicated photographer</li>
+                        <li>Studio lighting</li>
+                        <li>Full digital gallery of edited portraits within 48 hours</li>
+                    </ul>
+                </article>
+                <!-- Middle (what you want to sell) -->
+                <article class="exp-card featured fade-in stagger-2">
+                    <div class="exp-card-number" aria-hidden="true">02</div>
+                    <h3>Signature Experience</h3>
+                    <p class="exp-card-price">$2,200</p>
+                    <ul class="exp-card-features">
+                        <li>Premium backdrop options</li>
+                        <li>Dedicated photographer</li>
+                        <li>On-site print station</li>
+                        <li>Full digital gallery within 48 hours</li>
+                    </ul>
+                    <span class="popular-badge">Most Popular</span>
+                </article>
+                <!-- Highest last -->
+                <article class="exp-card fade-in stagger-3">
+                    <div class="exp-card-number" aria-hidden="true">03</div>
+                    <h3>Bespoke Experience</h3>
+                    <p class="exp-card-price">Starting at $3,500</p>
+                    <ul class="exp-card-features">
+                        <li>Multiple backdrops</li>
+                        <li>Custom event branding</li>
+                        <li>VIP headshot station</li>
+                        <li>Same-day digital sharing</li>
+                        <li>Large-scale framed prints or print wall</li>
+                        <li>Dedicated photographer</li>
+                        <li>Full digital gallery within 48 hours</li>
+                    </ul>
+                </article>
+            </div>
+            <div class="section-cta fade-in">
+                <a href="/#contact" class="cta-button">
+                    Get a Custom Quote
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+                        <path d="M5 12h14M12 5l7 7-7 7"/>
+                    </svg>
+                </a>
+            </div>
+        </section>
+
+        <!-- ==================== PORTFOLIO STRIP ==================== -->
+        <section class="exp-portfolio-strip" aria-label="Recent event portraits">
+            <div class="exp-portfolio-row">
+                <img src="images/homepage/pll-1.jpg" alt="Professional headshot from a Portrait Lounge event" loading="lazy" decoding="async">
+                <img src="images/homepage/bokeh-5036.jpg" alt="Gala guest portrait with studio lighting" loading="lazy" decoding="async">
+                <img src="images/homepage/pll-2.jpg" alt="Corporate headshot from a networking event" loading="lazy" decoding="async">
+                <img src="images/homepage/pll-6.jpg" alt="Polished headshot from a live headshot station" loading="lazy" decoding="async">
+            </div>
+        </section>
+
+        <!-- ==================== READY TO BOOK ==================== -->
+        <section class="exp-cta-section" aria-labelledby="cta-heading">
+            <div class="exp-cta-inner">
+                <div class="section-label fade-in">Let's Connect</div>
+                <h2 id="cta-heading" class="fade-in">Ready to Book<br><em>Your Event?</em></h2>
+                <p class="fade-in stagger-1">Share a few details about your event and you will hear back within 24 hours with availability and a custom quote.</p>
+                <a href="/#contact" class="cta-button fade-in stagger-2">
+                    Book Your Event
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+                        <path d="M5 12h14M12 5l7 7-7 7"/>
+                    </svg>
+                </a>
+                <div class="exp-cta-contact fade-in stagger-3">
+                    <a href="tel:+19493128300">+1 (949) 312-8300</a>
+                    <a href="mailto:guramrit.art@gmail.com">guramrit.art@gmail.com</a>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- ==================== FOOTER ==================== -->
+    <footer class="exp-footer" role="contentinfo">
+        <span class="exp-footer-logo">Portrait Lounge</span>
+        <p>&copy; 2026 Portrait Lounge. Live Portrait Experience. All rights reserved.</p>
+        <div class="exp-footer-social">
+            <a href="https://instagram.com/portraitlounge.live" target="_blank" rel="noopener">Instagram</a>
+        </div>
+    </footer>
+
+    <!-- ==================== SCRIPTS ==================== -->
+    <script>
+        // Navbar scroll behavior
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 100) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // Mobile menu toggle
+        const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+        const mobileNav = document.getElementById('mobileNav');
+        const mobileNavClose = document.querySelector('.mobile-nav-close');
+        const mobileNavLinks = mobileNav.querySelectorAll('a');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileNav.classList.add('active');
+            mobileMenuBtn.setAttribute('aria-expanded', 'true');
+            document.body.style.overflow = 'hidden';
+        });
+
+        function closeMobileNav() {
+            mobileNav.classList.remove('active');
+            mobileMenuBtn.setAttribute('aria-expanded', 'false');
+            document.body.style.overflow = '';
+        }
+
+        mobileNavClose.addEventListener('click', closeMobileNav);
+        mobileNavLinks.forEach(link => link.addEventListener('click', closeMobileNav));
+
+        // Intersection Observer for fade-in animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -80px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.fade-in').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Smooth scroll for same-page anchor links only
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
